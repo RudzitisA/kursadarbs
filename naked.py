@@ -3,9 +3,24 @@ import json
 import datetime
 import time
 import yaml
+import logging
+import logging.config
+import yaml
 
 from datetime import datetime
 from configparser import ConfigParser
+
+# Loading logging configuration
+with open('./log_worker.yaml', 'r') as stream:
+	log_config = yaml.safe_load(stream)
+
+logging.config.dictConfig(log_config)
+
+# Creating logger
+logger = logging.getLogger('root')
+
+
+
 print('Asteroid processing service')
 
 # Initiating and reading config values
@@ -19,21 +34,22 @@ try:
         nasa_api_url = config.get('nasa', 'api_url')
 except:
         logger.exception('')
-print('DONE')
+logger.info('DONE')
+
 
 # Getting todays date
 dt = datetime.now()
 request_date = str(dt.year) + "-" + str(dt.month).zfill(2) + "-" + str(dt.day).zfill(2)  
-print("Generated today's date: " + str(request_date))
+logger.debug("Generated today's date: " + str(request_date))
 
 # Requeting information from NASA API 
-print("Request url: " + str(nasa_api_url + "rest/v1/feed?start_date=" + request_date + "&end_date=" + request_date + "&api_key=" + nasa_api_key))
+logger.debug("Request url: " + str(nasa_api_url + "rest/v1/feed?start_date=" + request_date + "&end_date=" + request_date + "&api_key=" + nasa_api_key))
 r = requests.get(nasa_api_url + "rest/v1/feed?start_date=" + request_date + "&end_date=" + request_date + "&api_key=" + nasa_api_key)
 
 # Printing NASA request response data
-print("Response status code: " + str(r.status_code))
-print("Response headers: " + str(r.headers))
-print("Response content: " + str(r.text))
+logger.debug("Response status code: " + str(r.status_code))
+logger.debug("Response headers: " + str(r.headers))
+logger.debug("Response content: " + str(r.text))
 
 if r.status_code == 200:
 
