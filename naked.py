@@ -18,6 +18,7 @@ with open('./log_worker.yaml', 'r') as stream:
 
 logging.config.dictConfig(log_config)
 
+
 # Creating logger
 logger = logging.getLogger('root')
 
