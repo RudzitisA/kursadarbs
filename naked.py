@@ -21,7 +21,6 @@ logging.config.dictConfig(log_config)
 
 # Creating logger
 logger = logging.getLogger('root')
-
 logger.info('Asteroid processing service')
 
 # Initiating and reading config values
@@ -42,10 +41,12 @@ except:
 	logger.exception('')
 logger.info('DONE')
 
+# Initialize connection to database
 def init_db():
 	global connection
 	connection = mysql.connector.connect(host=mysql_config_mysql_host, database=mysql_config_mysql_db, user=mysql_config_mysql_user, password=mysql_config_mysql_pass)
 
+# Testing connection to database
 def get_cursor():
 	global connection
 	try:
