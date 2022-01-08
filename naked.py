@@ -1,3 +1,5 @@
+# Skaidri redzams komentārs
+
 import requests
 import json
 import datetime
