@@ -222,3 +222,5 @@ if __name__ == "__main__":
 			push_asteroids_arrays_to_db(request_date, ast_safe, 0)
 	else:
 		logger.error("Unable to get response from API. Response code: " + str(r.status_code) + " | content: " + str(r.text))
+
+#Test comment for release
